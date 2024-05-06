@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:27:28 by obrittne          #+#    #+#             */
-/*   Updated: 2024/05/05 12:47:58 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:58:48 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			filo(int *data);
 long long	get_time(void);
 void		copy(int *dest, int *src, int additon);
 int			get_ind(int ind, int amount);
-void		print(long long stamp, int id, int action);
+void		print(long long stamp, int id, int action, int dead);
 int			init_mutexes(pthread_mutex_t *mutexes);
 int			destroy_all_mutexes(pthread_mutex_t *mutexes, int i);
 int			philo_solo_warrior(int *data);
@@ -77,6 +77,6 @@ int			eat(t_philo *philo, int ind, pthread_mutex_t *mutexes, \
 t_supervisor *super);
 int			sleeping(t_philo *philo, int ind, pthread_mutex_t *mutexes, \
 t_supervisor *super);
-int			check_if_dead(t_philo *philo, pthread_mutex_t *mutexes, \
+int			check_if_dead(t_philo *philo, int ind, pthread_mutex_t *mutexes, \
 t_supervisor *super);
 #endif

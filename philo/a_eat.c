@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 12:46:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/05/05 14:16:54 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:41:52 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,17 @@ t_supervisor *super)
 {
 	long long	last_eat;
 
-	pthread_mutex_lock(&mutexes[1]);
-	if (check_if_dead(philo, mutexes, super))
-	{
-		pthread_mutex_unlock(&philo[ind].fork_mutex);
-		pthread_mutex_unlock(&philo[get_ind(ind, philo[0].data[0])].fork_mutex);
-		pthread_mutex_unlock(&mutexes[1]);
+	if (check_if_dead(philo, ind, mutexes, super))
 		return (1);
-	}
-	last_eat = get_time();
+	pthread_mutex_lock(&mutexes[1]);
 	pthread_mutex_lock(&mutexes[2]);
-	print(last_eat, ind, 2);
+	last_eat = get_time();
+	print(last_eat, ind, 2, super->dead);
 	philo[ind].last_eat = last_eat;
 	pthread_mutex_unlock(&mutexes[2]);
 	pthread_mutex_unlock(&mutexes[1]);
+	if (check_if_dead(philo, ind, mutexes, super))
+		return (1);
 	return (0);
 }
 
@@ -63,22 +60,23 @@ t_supervisor *super)
 	long long	start_time;
 	int			*data;
 
+	if (check_if_dead(philo, ind, mutexes, super))
+		return (1);
 	data = philo->data;
 	if (print_eat(philo, ind, mutexes, super))
 		return (1);
 	start_time = philo[ind].last_eat;
 	while (start_time + data[2] > get_time())
 	{
-		if (check_if_dead(philo, mutexes, super))
-		{
-			pthread_mutex_unlock(&philo[ind].fork_mutex);
-			pthread_mutex_unlock(&philo[get_ind(ind, \
-			philo[0].data[0])].fork_mutex);
+		if (check_if_dead(philo, ind, mutexes, super))
 			return (1);
-		}
-		usleep(10);
+		usleep(250);
 	}
+	pthread_mutex_lock(&philo[ind].fork_mutex);
+	philo[ind].fork_locked = 0;
 	pthread_mutex_unlock(&philo[ind].fork_mutex);
+	pthread_mutex_lock(&philo[get_ind(ind, philo[0].data[0])].fork_mutex);
+	philo[get_ind(ind, philo[0].data[0])].fork_locked = 0;
 	pthread_mutex_unlock(&philo[get_ind(ind, philo[0].data[0])].fork_mutex);
 	modify_super(mutexes, super);
 	return (0);

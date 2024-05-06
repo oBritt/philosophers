@@ -6,13 +6,11 @@
 /*   By: obrittne <obrittne@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:23:30 by obrittne          #+#    #+#             */
-/*   Updated: 2024/04/30 15:43:59 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:42:15 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "filo.h"
-#include <stdio.h>
 
 int	main(int argc, char **argv)
 {

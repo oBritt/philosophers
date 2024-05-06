@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:09:06 by obrittne          #+#    #+#             */
-/*   Updated: 2024/04/30 18:41:20 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/05/05 18:48:10 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	*execute(void *arg)
 	output = s->mutexes;
 	pthread_mutex_lock(&(phi->fork_mutex));
 	pthread_mutex_lock(output);
-	print(get_time(), 1, 1);
+	print(get_time(), 1, 1, 0);
 	pthread_mutex_unlock(output);
 	usleep(data[1] * 1000);
 	pthread_mutex_lock(output);
-	print(get_time(), 1, 5);
+	print(get_time(), 1, 5, 0);
 	pthread_mutex_unlock(output);
 	pthread_mutex_unlock(&(phi->fork_mutex));
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:51:41 by obrittne          #+#    #+#             */
-/*   Updated: 2024/04/29 17:37:25 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/05/05 18:53:15 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	put_nbr(long long stamp)
 		put_nbr_h(stamp);
 }
 
-void	print(long long stamp, int id, int action)
+void	print(long long stamp, int id, int action, int dead)
 {
 	static int			first = 1;
 	static long long	start = 0;
@@ -42,6 +42,8 @@ void	print(long long stamp, int id, int action)
 		first = 0;
 		start = get_time();
 	}
+	if (dead == 1)
+		return ;
 	put_nbr(stamp - start);
 	write(1, " ", 1);
 	put_nbr((long long) id + 1);
